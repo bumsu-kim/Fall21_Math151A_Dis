@@ -8,7 +8,8 @@ fnodes = [179323, 203302, 226542, 249633, 281422, 308746];
 syms x % x as a symbol
 
 L = Lag_int(x, xnodes, fnodes);
-
+fprintf('P_5''s coefficients: ');
+disp(sym2poly(L));
 % Plotting
 N = 61;
 % % naive idea
@@ -23,7 +24,7 @@ N = 61;
 % t_naive = toc;
 % fplot
 tic;
-figure(); fplot(L, [0,60]);
+figure(); fplot(L, [-10,60]);
 title('US Population History, x=Year-1960')
 t_fplot = toc;
 
@@ -32,7 +33,7 @@ x = 2020-1960;
 fprintf('In 2020, prediction = %d\n', subs(L));
 
 %% Problem 4
-fprintf('\n\n======Problem 4======');
+fprintf('\n\n======Problem 4======\n');
 xnodes = [0, .25, .5, .75];
 fnodes = [1, 1.64872, 2.71828, 4.48169];
 n = length(xnodes);
@@ -56,6 +57,10 @@ end
 P1 = @(x) fnodes(1) + dd_1(1)*(x-xnodes(1));
 P2 = @(x) P1(x) + dd_2(1)*(x-xnodes(1))*(x-xnodes(2));
 P3 = @(x) P2(x) + dd_3(1)*(x-xnodes(1))*(x-xnodes(2))*(x-xnodes(3));
+syms x;
+disp(sym2poly(P1(x)));
+disp(sym2poly(P2(x)));
+disp(sym2poly(P3(x)));
 
 fprintf('P1(0.43) = %f\nP2(0.43) = %f\nP3(0.43) = %f\n',P1(0.43), P2(0.43), P3(0.43));
 
